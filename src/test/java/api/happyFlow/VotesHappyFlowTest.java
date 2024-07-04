@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.Objects;
 
@@ -18,6 +19,8 @@ import static org.hamcrest.Matchers.equalTo;
 
 @Test(groups = {"SMOKE"})
 public class VotesHappyFlowTest {
+    SoftAssert softAssert = new SoftAssert();
+
     @BeforeTest
     public void checkThatVotesListIsEmpty() {
         Steps.checkThatBodyIsEmpty(VOTES_PATH);
@@ -30,25 +33,26 @@ public class VotesHappyFlowTest {
                 .statusCode(201)
                 .extract().as(PostTheDogForVoting.class);
         Assert.assertEquals(postTheDogForVoting.getMessage(), SUCCESS_MESSAGE);
-        Assert.assertEquals(postTheDogForVoting.getImage_id(), IMAGE_ID1);
-        Assert.assertEquals(postTheDogForVoting.getSub_id(), SUB_ID1);
-        Assert.assertEquals(postTheDogForVoting.getValue(), 10);
+        softAssert.assertEquals(postTheDogForVoting.getImage_id(), IMAGE_ID1);
+        softAssert.assertEquals(postTheDogForVoting.getSub_id(), SUB_ID1);
+        softAssert.assertEquals(postTheDogForVoting.getValue(), 10);
         GetVotedDog[] dogs = Steps.getDataFromResource(VOTES_PATH)
                 .statusCode(200)
                 .extract()
                 .as(GetVotedDog[].class);
         GetVotedDog dog = dogs[0];
-        Assert.assertEquals(dog.getId(), postTheDogForVoting.getId());
-        Assert.assertEquals(dog.getImage_id(), IMAGE_ID1);
-        Assert.assertEquals(dog.getSub_id(), SUB_ID1);
-        Assert.assertEquals(dog.getImage().getId(), IMAGE_ID1);
-        Assert.assertEquals(dog.getImage().getUrl(), TestConfiguration.getDogApiImage(IMAGE_ID1));
-        Assert.assertEquals(dog.getValue(), 10);
+        softAssert.assertEquals(dog.getId(), postTheDogForVoting.getId());
+        softAssert.assertEquals(dog.getImage_id(), IMAGE_ID1);
+        softAssert.assertEquals(dog.getSub_id(), SUB_ID1);
+        softAssert.assertEquals(dog.getImage().getId(), IMAGE_ID1);
+        softAssert.assertEquals(dog.getImage().getUrl(), TestConfiguration.getDogApiImage(IMAGE_ID1));
+        softAssert.assertEquals(dog.getValue(), 10);
         GetVotedDog dogById = Steps.getDataFromResource(VOTES_PATH + postTheDogForVoting.getId())
                 .statusCode(200)
                 .extract()
                 .as(GetVotedDog.class);
-        Assert.assertEquals(dog, dogById);
+        softAssert.assertEquals(dog, dogById);
+        softAssert.assertAll();
     }
 
     @AfterMethod

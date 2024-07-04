@@ -1,5 +1,6 @@
 package api.happyFlow;
 
+import com.beust.ah.A;
 import jdk.jfr.Description;
 import org.example.Steps;
 import org.example.dog.models.favourites.FavouriteDog;
@@ -10,6 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.Objects;
 
@@ -18,6 +20,8 @@ import static org.hamcrest.Matchers.equalTo;
 
 @Test(groups = {"SMOKE"})
 public class FavouritesHappyFlowTest {
+    SoftAssert softAssert = new SoftAssert();
+
     @BeforeTest
     public void checkThatFavouriteListIsEmpty() {
         Steps.checkThatBodyIsEmpty(FAVOURITES_PATH);
@@ -35,17 +39,18 @@ public class FavouritesHappyFlowTest {
                 .extract()
                 .as(GetFavouriteDog[].class);
         GetFavouriteDog dog = dogs[0];
-        Assert.assertEquals(dog.getId(), postFavouriteDog.getId());
-        Assert.assertEquals(dog.getUser_id(), TestConfiguration.getDogApiUserId());
-        Assert.assertEquals(dog.getImage_id(), IMAGE_ID1);
-        Assert.assertEquals(dog.getSub_id(), SUB_ID1);
-        Assert.assertEquals(dog.getImage().getId(), IMAGE_ID1);
-        Assert.assertEquals(dog.getImage().getUrl(), TestConfiguration.getDogApiImage(IMAGE_ID1));
-        GetFavouriteDog dogById = Steps.getDataFromResource(FAVOURITES_PATH +postFavouriteDog.getId())
+        softAssert.assertEquals(dog.getId(), postFavouriteDog.getId());
+        softAssert.assertEquals(dog.getUser_id(), TestConfiguration.getDogApiUserId());
+        softAssert.assertEquals(dog.getImage_id(), IMAGE_ID1);
+        softAssert.assertEquals(dog.getSub_id(), SUB_ID1);
+        softAssert.assertEquals(dog.getImage().getId(), IMAGE_ID1);
+        softAssert.assertEquals(dog.getImage().getUrl(), TestConfiguration.getDogApiImage(IMAGE_ID1));
+        GetFavouriteDog dogById = Steps.getDataFromResource(FAVOURITES_PATH + postFavouriteDog.getId())
                 .statusCode(200)
                 .extract()
                 .as(GetFavouriteDog.class);
-        Assert.assertEquals(dog,dogById);
+        softAssert.assertEquals(dog, dogById);
+        softAssert.assertAll();
     }
 
     @Test(testName = "Favourites with multiple values")
@@ -65,19 +70,20 @@ public class FavouritesHappyFlowTest {
                 .extract()
                 .as(GetFavouriteDog[].class);
         GetFavouriteDog dog1 = dogs[0];
-        Assert.assertEquals(dog1.getId(), postFavouriteDog1.getId());
-        Assert.assertEquals(dog1.getUser_id(), TestConfiguration.getDogApiUserId());
-        Assert.assertEquals(dog1.getImage_id(), IMAGE_ID1);
-        Assert.assertEquals(dog1.getSub_id(), SUB_ID1);
-        Assert.assertEquals(dog1.getImage().getId(), IMAGE_ID1);
-        Assert.assertEquals(dog1.getImage().getUrl(), TestConfiguration.getDogApiImage(IMAGE_ID1));
+        softAssert.assertEquals(dog1.getId(), postFavouriteDog1.getId());
+        softAssert.assertEquals(dog1.getUser_id(), TestConfiguration.getDogApiUserId());
+        softAssert.assertEquals(dog1.getImage_id(), IMAGE_ID1);
+        softAssert.assertEquals(dog1.getSub_id(), SUB_ID1);
+        softAssert.assertEquals(dog1.getImage().getId(), IMAGE_ID1);
+        softAssert.assertEquals(dog1.getImage().getUrl(), TestConfiguration.getDogApiImage(IMAGE_ID1));
         GetFavouriteDog dog2 = dogs[1];
-        Assert.assertEquals(dog2.getId(), postFavouriteDog2.getId());
-        Assert.assertEquals(dog2.getUser_id(), TestConfiguration.getDogApiUserId());
-        Assert.assertEquals(dog2.getImage_id(), IMAGE_ID2);
-        Assert.assertEquals(dog2.getSub_id(), SUB_ID2);
-        Assert.assertEquals(dog2.getImage().getId(), IMAGE_ID2);
-        Assert.assertEquals(dog2.getImage().getUrl(), TestConfiguration.getDogApiImage(IMAGE_ID2));
+        softAssert.assertEquals(dog2.getId(), postFavouriteDog2.getId());
+        softAssert.assertEquals(dog2.getUser_id(), TestConfiguration.getDogApiUserId());
+        softAssert.assertEquals(dog2.getImage_id(), IMAGE_ID2);
+        softAssert.assertEquals(dog2.getSub_id(), SUB_ID2);
+        softAssert.assertEquals(dog2.getImage().getId(), IMAGE_ID2);
+        softAssert.assertEquals(dog2.getImage().getUrl(), TestConfiguration.getDogApiImage(IMAGE_ID2));
+        softAssert.assertAll();
     }
 
     @AfterMethod

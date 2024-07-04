@@ -1,3 +1,9 @@
+To run the tests, you have to change the value of the variable `dogApiValue` in `application.properties` to your API key.
+You can obtain it from the website https://thedogapi.com/ by registering for a free license.
+After that you need to execute the following command:
+
+`mvn test`
+
 # Tests description
 
 ## FavouritesHappyFlowTest.java

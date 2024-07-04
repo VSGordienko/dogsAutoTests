@@ -11,11 +11,12 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class Steps {
 
+
     private static final String URL = getDogApiUrl();
     private static final String KEY = getDogApiKey();
     private static final String VALUE = getDogApiValue();
 
-    public static void loggingSetup(){
+    public static void loggingSetup() {
         RestAssured.requestSpecification = new RequestSpecBuilder().
                 setBaseUri("api").
                 setContentType(ContentType.JSON).
@@ -27,7 +28,7 @@ public class Steps {
         loggingSetup();
         return RestAssured.given()
                 .contentType(ContentType.JSON)
-                .header(KEY, VALUE)
+                .header(KEY, VALUE).when()
                 .get(URL + pathSegment).then().log().all();
     }
 
@@ -35,7 +36,7 @@ public class Steps {
         loggingSetup();
         return RestAssured.given().body(responseTemplate)
                 .contentType(ContentType.JSON)
-                .header(KEY, VALUE)
+                .header(KEY, VALUE).when()
                 .post(URL + pathSegment).then().log().all();
     }
 
@@ -43,7 +44,7 @@ public class Steps {
         loggingSetup();
         return RestAssured.given()
                 .contentType(ContentType.JSON)
-                .header(KEY, VALUE)
+                .header(KEY, VALUE).when()
                 .delete(URL + pathSegment)
                 .then().log().all();
     }

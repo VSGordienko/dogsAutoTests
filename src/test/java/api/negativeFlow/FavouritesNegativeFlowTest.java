@@ -23,7 +23,7 @@ public class FavouritesNegativeFlowTest {
 
     @Test(testName = "Deleting a record with a non-existing id")
     @Description("Testing functionality for deleting a non-existent record")
-    public void deletingANonExistentDog() {
+    public void deletingNonExistentDog() {
         Steps.deleteDataFromResource(FAVOURITES_PATH + "fff")
                 .statusCode(400)
                 .body(equalTo("INVALID_ACCOUNT"));

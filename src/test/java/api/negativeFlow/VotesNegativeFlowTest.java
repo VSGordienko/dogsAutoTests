@@ -20,7 +20,7 @@ public class VotesNegativeFlowTest {
 
     @Test(testName = "Deleting a record with a non-existing id")
     @Description("Testing functionality for deleting a non-existent record")
-    public void deletingANonExistentDog() {
+    public void deletingNonExistentDog() {
         Steps.deleteDataFromResource(VOTES_PATH + "fff")
                 .statusCode(404)
                 .body(equalTo("NO_VOTE_FOUND_MATCHING_ID"));
