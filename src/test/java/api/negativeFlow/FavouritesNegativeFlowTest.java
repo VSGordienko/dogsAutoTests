@@ -7,6 +7,7 @@ import org.example.dog.models.favourites.FavouriteDog;
 import org.testng.annotations.Test;
 
 import static org.example.dog.models.DogUtils.*;
+import static org.example.util.ErrorMessages.*;
 import static org.hamcrest.Matchers.equalTo;
 
 @Test(groups = {"SMOKE"})
@@ -24,9 +25,9 @@ public class FavouritesNegativeFlowTest {
     @Test(testName = "Deleting a record with a non-existing id")
     @Description("Testing functionality for deleting a non-existent record")
     public void deletingNonExistentDog() {
-        Steps.deleteDataFromResource(FAVOURITES_PATH + "fff")
+        Steps.deleteDataFromResource(FAVOURITES_PATH + WRONG_IMAGE_ID)
                 .statusCode(400)
-                .body(equalTo("INVALID_ACCOUNT"));
+                .body(equalTo(INVALID_ACCOUNT));
     }
 
 }

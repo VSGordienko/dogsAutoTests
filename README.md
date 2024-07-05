@@ -1,15 +1,26 @@
+## Technology Stack
+- **Programming Language**: Java
+- **Build System**: Maven
+- **Testing  Framework**: TestNG
+- **API Testing Library**: Rest Assured
+- **Automatic Code Generation Library**: Lombok
+- **Logging Library**: Log4j
+- **JSON Library**: Gson
+- **Assertion Library**: Hamcrest
+- **Reporting**: TestNG Reports
+
 To run the tests, you have to change the value of the variable `dogApiValue` in `application.properties` to your API key.
 You can obtain it from the website https://thedogapi.com/ by registering for a free license.
 After that you need to execute the following command:
 
 `mvn test`
 
-# Tests description
+## Tests description
 
-## FavouritesHappyFlowTest.java
+### FavouritesHappyFlowTest.java
 
 AC1
-### Favourites with one value
+#### Favourites with one value
 
 1. Add one dog to favourites using the POST request to /favourites with parameters:
    {
@@ -51,7 +62,7 @@ AC1
    }
 
 AC2
-### Favourites with multiple values
+#### Favourites with multiple values
 
 1. Add one dog to favourites using the POST request to /favourites with parameters:
    {
@@ -102,10 +113,10 @@ AC2
    ]
    as a response
 
-## VotesHappyFlowTest.java
+### VotesHappyFlowTest.java
 
 AC1
-### Votes with one value
+#### Votes with one value
 
 1. Add one dog to favourites using the POST request to /votes with parameters:
    {
@@ -154,10 +165,10 @@ AC1
    }
    as a response
 
-## FavouritesNegativeFlowTest.java
+### FavouritesNegativeFlowTest.java
 
 AC1
-### Adding a dog to 'Favourites' without an image_id
+#### Adding a dog to 'Favourites' without an image_id
 
 1. Add one dog to favourites using the POST request to /favourites with parameters:
    {
@@ -168,23 +179,23 @@ AC1
    as a result
 
 AC2
-### Deleting a record with a non-existing id
+#### Deleting a record with a non-existing id
 1. Delete a dog by wrong id from favourites using the DELETE request to /favourites/fff
    And receive
    INVALID_ACCOUNT
    as a result
 
-## VotesNegativeFlowTest.java
+### VotesNegativeFlowTest.java
 
 AC1
-### Getting a record with a non-existing id
+#### Getting a record with a non-existing id
 1. Get a dog by wrong id from votes using the GET request to /votes/fff
    And receive
    NO_VOTE_FOUND_MATCHING_ID
    as a result
 
 AC2
-### Deleting a record with a non-existing id
+#### Deleting a record with a non-existing id
 1. Delete a dog by wrong id from votes using the DELETE request to /votes/fff
    And receive
    NO_VOTE_FOUND_MATCHING_ID

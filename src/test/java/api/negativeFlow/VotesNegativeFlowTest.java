@@ -5,6 +5,7 @@ import org.example.Steps;
 import org.testng.annotations.Test;
 
 import static org.example.dog.models.DogUtils.*;
+import static org.example.util.ErrorMessages.*;
 import static org.hamcrest.Matchers.equalTo;
 
 @Test(groups = {"SMOKE"})
@@ -13,16 +14,16 @@ public class VotesNegativeFlowTest {
     @Test(testName = "Getting a record with a non-existing id")
     @Description("Testing functionality for getting a non-existent record")
     public void wrongIdForGetVotes() {
-        Steps.getDataFromResource(VOTES_PATH + "fff")
+        Steps.getDataFromResource(VOTES_PATH + WRONG_IMAGE_ID)
                 .statusCode(404)
-                .body(equalTo("NOT_FOUND"));
+                .body(equalTo(NOT_FOUND));
     }
 
     @Test(testName = "Deleting a record with a non-existing id")
     @Description("Testing functionality for deleting a non-existent record")
     public void deletingNonExistentDog() {
-        Steps.deleteDataFromResource(VOTES_PATH + "fff")
+        Steps.deleteDataFromResource(VOTES_PATH + WRONG_IMAGE_ID)
                 .statusCode(404)
-                .body(equalTo("NO_VOTE_FOUND_MATCHING_ID"));
+                .body(equalTo(NO_VOTE));
     }
 }

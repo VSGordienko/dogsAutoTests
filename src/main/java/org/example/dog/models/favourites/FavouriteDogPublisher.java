@@ -1,4 +1,4 @@
-package org.example.dog.models.votes;
+package org.example.dog.models.favourites;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,11 +8,7 @@ import org.example.util.PojoMarker;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostTheDogForVoting implements PojoMarker {
+public class FavouriteDogPublisher implements PojoMarker {
     private String message;
     private int id;
-    private String image_id;
-    private String sub_id;
-    private int value;
-    private String country_code;
 }
