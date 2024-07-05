@@ -1,5 +1,6 @@
 package org.example.dog.models.favourites;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.util.PojoMarker;
@@ -8,6 +9,7 @@ import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class GetFavouriteDog implements PojoMarker {
     private int id;
     private String user_id;
@@ -16,25 +18,12 @@ public class GetFavouriteDog implements PojoMarker {
     private String created_at;
     private ImageData image;
 
-    public GetFavouriteDog(int id, String user_id, String image_id, String sub_id, String created_at, ImageData image) {
-        this.id = id;
-        this.user_id = user_id;
-        this.image_id = image_id;
-        this.sub_id = sub_id;
-        this.created_at = created_at;
-        this.image = image;
-    }
-
     @Getter
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class ImageData {
         private String id;
         private String url;
-
-        public ImageData(String id, String url) {
-            this.id = id;
-            this.url = url;
-        }
 
         @Override
         public boolean equals(Object o) {
